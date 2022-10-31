@@ -1,0 +1,58 @@
+use mytraining
+
+select * from salesman
+select * from orders
+select * from customer
+
+
+select getdate() 'currentdateandtime'
+
+--cast and convert
+
+select cast(getdate() as varchar(12)) as sysdate
+
+select convert(varchar(25), getdate()) as sysdate
+
+select convert(varchar(25), getdate(), 131) as sysdate
+
+select year(getdate()) as 'current year'
+
+select order_no,salesman_id,customer_id, (cast(year(ord_date) as varchar(4)))+ '-' + (cast(month(ord_date) as varchar(5)))+ '-' + (cast(day(ord_date) as varchar(5))) as order_date
+from orders
+
+select order_no,salesman_id,customer_id,month(ord_date) 'month' 
+from orders
+
+select order_no,salesman_id,customer_id,day(ord_date) 'day' 
+from orders
+
+select DATEDIFF(day,ord_date,getdate()) 'daydiff', DATEDIFF(month,ord_date,getdate()) 'monthdiff', DATEDIFF(year,ord_date,getdate()) 'yeardiff'
+from orders
+
+select DATEDIFF(year,ord_date,getdate()) 'yeardiff',
+case when (DATEDIFF(year,ord_date,getdate())>5) then 'Gold'
+	 when (DATEDIFF(year,ord_date,getdate())<5) then 'Silver'
+	 else 'Bronze' end as SalesmanTypes from orders
+
+SELECT DATEFROMPARTS(2012,09,10) AS _date;
+SELECT DATEADD(DAY, -1, '2012-09-10') AS _date_add;
+SELECT DATEDIFF(DAY, '2012-09-10', '2012-10-05') AS _date_difference;
+
+SELECT GETUTCDATE() _GETUTCDATE;
+SELECT SYSUTCDATETIME() _SYSUTCDATETIME;
+SELECT SYSDATETIMEOFFSET() AS _SYSDATETIMEOFFSET;
+
+SELECT 
+	YEAR('2022/09/14 06:21:56') AS _year, 
+	MONTH('2022/09/14 06:21:56') AS _month, 
+	DAY('2022/09/14 06:21:56') AS _day;
+
+SELECT 
+	DATEPART(YEAR, '2022/09/14 06:21:56') AS _year, 
+	DATEPART(MONTH, '2022/09/14 06:21:56') AS _month, 
+	DATEPART(DAY, '2022/09/14 06:21:56') AS _day, 
+	DATEPART(HOUR, '2022/09/14 06:21:56') AS _hour, 
+	DATEPART(MINUTE, '2022/09/14 06:21:56') AS _minute, 
+	DATEPART(SECOND, '2022/09/14 06:21:56') AS _second;
+
+SELECT EOMONTH('2012-09-10') AS _eom;
